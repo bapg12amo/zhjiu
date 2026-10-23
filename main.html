@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>拯救锖兔｜文字分支视觉小说</title>
+<style>
+:root{--bg:#10141a;--panel:rgba(15,20,27,.9);--line:rgba(190,211,226,.24);--text:#e8edf1;--muted:#aab7c2;--blue:#8dbed3;--blue2:#d5edf7;--gold:#d9bd82}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}
+body{margin:0;min-height:100vh;color:var(--text);font-family:"Noto Serif SC","Songti SC","STSong",serif;background:linear-gradient(180deg,rgba(7,12,18,.42),rgba(7,12,18,.9)),linear-gradient(135deg,#17232d,#0c1016 58%,#20212b);background-attachment:fixed}
+button{font:inherit}.app{min-height:100vh;display:flex;flex-direction:column}
+.disclaimer{padding:10px 14px;text-align:center;color:#b5c0c9;font:12px/1.6 system-ui,sans-serif;background:rgba(5,8,12,.7)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px clamp(14px,4vw,42px);border-bottom:1px solid var(--line);background:rgba(7,11,16,.5)}
+.brand{font-size:clamp(17px,2.6vw,23px);letter-spacing:.16em;color:var(--blue2)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.tool-btn{border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);padding:8px 11px;border-radius:3px;cursor:pointer;font-size:13px}
+.tool-btn:hover{border-color:var(--blue);color:#fff}
+main{width:min(920px,100%);margin:0 auto;padding:clamp(20px,5vw,54px) clamp(16px,4vw,34px) 30px;flex:1;display:flex;flex-direction:column}
+.panel{background:var(--panel);border:1px solid var(--line);box-shadow:0 20px 70px rgba(0,0,0,.18);padding:clamp(20px,4vw,38px);border-radius:4px}
+.menu-panel{text-align:center;padding-top:clamp(36px,8vw,72px);padding-bottom:clamp(36px,8vw,72px)}
+.menu-kicker{color:var(--blue);letter-spacing:.35em;font-size:12px;margin-bottom:18px}
+.menu-title{font-size:clamp(40px,9vw,76px);letter-spacing:.2em;margin:0 0 12px;font-weight:500}
+.menu-copy{max-width:540px;margin:0 auto 28px;line-height:2;color:#bdc8d0}
+.primary,.choice{width:100%;border:1px solid rgba(141,190,211,.4);background:rgba(141,190,211,.08);color:var(--text);cursor:pointer;transition:.2s}
+.primary{max-width:320px;padding:14px 18px;letter-spacing:.18em;margin:6px auto;border-radius:2px}
+.primary:hover,.choice:hover{background:rgba(141,190,211,.16);border-color:var(--blue)}
+.secondary{border-color:var(--line);background:rgba(255,255,255,.025);color:#b8c4ce}
+.chapter-line{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:20px 0}
+.story-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:18px}
+.chapter-tag{color:var(--gold);font:12px/1.5 system-ui,sans-serif;letter-spacing:.15em}
+.progress{font:12px/1.5 system-ui,sans-serif;color:#8f9ca7}
+.story-text{font-size:clamp(16px,2.3vw,19px);line-height:2.05;white-space:pre-line;min-height:190px;color:#e3e9ed}
+.story-text.fade-in{animation:storyIn .85s ease both}
+@keyframes storyIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.options{display:grid;gap:10px;margin-top:24px}
+.choice{text-align:left;padding:15px 17px;line-height:1.7;border-radius:3px;min-height:54px;display:flex;gap:12px;align-items:flex-start}
+.choice .key{color:var(--gold);font:12px/1.9 system-ui,sans-serif;min-width:24px}
+.choice .label{flex:1}
+.choice.continue{justify-content:center;border-color:var(--line);background:rgba(255,255,255,.03);color:#b8c4ce;letter-spacing:.2em;min-height:48px;align-items:center}
+.choice.continue .label{flex:0 0 auto}
+.note{font:12px/1.8 system-ui,sans-serif;color:#82919d;margin-top:18px}
+.ending-mark{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:5px 10px;letter-spacing:.18em;font:11px system-ui,sans-serif;margin-bottom:18px}
+.ending-title{font-size:clamp(27px,5vw,40px);font-weight:500;letter-spacing:.12em;margin:0 0 20px}
+.ending-copy{line-height:2.1;font-size:17px;white-space:pre-line;color:#e4e9ed}
+.end-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:28px}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.ending-card{padding:17px;border:1px solid var(--line);background:rgba(255,255,255,.025);min-height:130px}
+.ending-card.unlocked{border-color:rgba(217,189,130,.6);background:rgba(217,189,130,.055)}
+.ending-card .symbol{font-size:22px;color:#68747e;margin-bottom:9px}
+.ending-card.unlocked .symbol{color:var(--gold)}
+.ending-card h3{font-size:15px;font-weight:500;margin:0 0 8px}
+.ending-card p{font:12px/1.7 system-ui,sans-serif;color:#8e9ba6;margin:0}
+.ending-card.unlocked p{color:#bdc5ca}
+.gallery-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.gallery-count{color:var(--gold);font:13px system-ui,sans-serif}
+.eyebrow{font:11px/1.6 system-ui,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.screen-title{font-size:clamp(27px,5vw,46px);font-weight:500;letter-spacing:.16em;margin:0 0 12px}
+.subtitle{color:var(--muted);line-height:1.9;margin:0 0 24px;font-size:14px}
+.hidden{display:none!important}
+footer{padding:18px 14px 24px;text-align:center;color:#788691;font:11px/1.8 system-ui,sans-serif}
+@media(min-width:720px){.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:460px){header{align-items:flex-start}.brand{letter-spacing:.08em;font-size:15px}.tools{gap:5px}.tool-btn{font-size:12px;padding:7px 8px}main{padding-top:24px}.panel{padding:20px 16px}.end-actions{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr}.choice{padding:14px 12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="disclaimer">同人作品｜《鬼灭之刃》相关原作版权归原作者及相关权利方所有。本作品为非盈利同人创作。</div>
+<header>
+<div class="brand">拯救锖兔 <span style="font-size:11px;color:#82919d">/ VISUAL NOVEL</span></div>
+<div class="tools">
+<button class="tool-btn" id="musicToggle" type="button">♫ BGM：关闭</button>
+<button class="tool-btn" id="galleryButton" type="button">结局图鉴</button>
+<button class="tool-btn" id="menuButton" type="button">主菜单</button>
+</div>
+</header>
+<main>
+<section id="menuScreen" class="panel menu-panel">
+<div class="menu-kicker">FUJIKASANE MOUNTAIN · FINAL SELECTION</div>
+<h1 class="menu-title">拯救锖兔</h1>
+<p class="menu-copy">请注意你的每一次选择，因为命运只在一瞬之间。<br>藤袭山的夜晚仍未结束——这一次，你能否改变结局？</p>
+<button class="primary" id="startButton" type="button">开始故事</button><br>
+<button class="primary secondary" id="menuGalleryButton" type="button">查看结局图鉴</button>
+<div class="chapter-line"></div>
+<p class="note">建议开启声音前先准备好本地音频文件。背景图与 BGM 均已预留资源位置。</p>
+</section>
+
+<section id="storyScreen" class="panel hidden" aria-live="polite">
+<div class="story-head"><span class="chapter-tag" id="chapterTag"></span><span class="progress" id="progressText"></span></div>
+<div class="story-text fade-in" id="storyText"></div>
+<div class="options" id="options"></div>
+<div class="note" id="storyNote"></div>
+</section>
+
+<section id="endingScreen" class="panel hidden" aria-live="polite">
+<div class="ending-mark" id="endingMark">ENDING</div>
+<h2 class="ending-title" id="endingTitle"></h2>
+<div class="ending-copy" id="endingText"></div>
+<div class="end-actions">
+<button class="primary" id="restartButton" type="button">重新开始</button>
+<button class="primary secondary" id="endingGalleryButton" type="button">结局图鉴</button>
+<button class="primary secondary" id="endingMenuButton" type="button">返回主菜单</button>
+</div>
+</section>
+
+<section id="galleryScreen" class="panel hidden">
+<div class="gallery-top">
+<div><div class="eyebrow">MEMORY ARCHIVE</div><h2 class="screen-title">结局图鉴</h2><p class="subtitle">走过的命运会被记录。尚未抵达的结局，仍藏在迷雾之中。</p></div>
+<div class="gallery-count" id="galleryCount"></div>
+</div>
+<div class="gallery-grid" id="galleryGrid"></div>
+<div class="end-actions">
+<button class="primary" id="galleryContinueButton" type="button">继续故事</button>
+<button class="primary secondary" id="galleryMenuButton" type="button">返回主菜单</button>
+<button class="primary secondary" id="clearSaveButton" type="button">重置图鉴记录</button>
+</div>
+<p class="note">图鉴记录保存在当前浏览器的 localStorage 中。</p>
+</section>
+</main>
+<footer>同人免责声明：原作版权归原作者及相关权利方所有，本页面为非盈利同人创作。</footer>
+</div>
+
+<script>
+"use strict";
+
+const STORY_NODES = {
+p1:{chapter:"序章｜藤袭山",text:`你叫富冈义勇，生于东京府，生日是二月八日。
+
+父母早逝，姐姐茑子也为了保护你，丧命于鬼的利爪之下。你的童年，只有严苛的瀑布特训、冰冷的溪水，还有师兄锖兔天天吵吵闹闹的陪伴。
+
+今天是最终选拔的第二天，地点，藤袭山。
+
+你遭遇的第一只鬼，就将你重创。利爪从你左眼上方狠狠劈落，整只眼睛瞬间被鲜血糊死。剧烈的疼痛加上大量失血，让你直接单膝跪地，手中的日轮刀险些脱手滑落。`,choices:[{key:"→",label:"继续",target:"p2"}]},
+
+p2:{chapter:"序章｜藤袭山",text:`“义勇！”
+
+急促又慌张的声音骤然响起。锖兔快步冲来，伸手死死扶住快要栽倒的你。他脸上的狐狸面具沾满泥土和血污，边缘还裂开一道崭新的缝隙，显然也经历了恶战。
+
+“糟了，你伤得太重了。”锖兔盯着你流血不止的左眼，眉头紧锁，咬紧了牙关。
+
+他没有多余的废话，半扶半架着虚弱的你，快速退向树林深处。你想开口说自己还能撑，但双腿发软，根本站不稳，只能任由他带着你移动。`,choices:[{key:"→",label:"继续",target:"p3"}]},
+
+p3:{chapter:"序章｜藤袭山",text:`锖兔把你安置在一棵粗壮的大树后，让你背靠树干坐稳。随后他蹲下身，与你平视，抬手按住你的额头，轻轻将你的头靠向自己。
+
+额头相抵，距离极近。你能清晰感受到他温热的呼吸，还有狐狸面具粗糙冰凉的边角。
+
+“听着，义勇。”他压低声音，语气格外郑重，“你就在这里待着，千万别乱动。村田和另一个同期就在附近，我已经交代过他们，马上就过来守着你。”`,choices:[{key:"→",label:"继续",target:"p4"}]},
+
+p4:{chapter:"序章｜藤袭山",text:`他准备起身迎战。
+
+你下意识抬手，轻轻攥住了他的袖口。
+
+锖兔低头看向你的手，额头还残留着相贴的温度。
+
+“放心，我一定会回来找你。”
+
+他温柔掰开你的手，轻轻放在你的膝盖上，转身毫不犹豫冲进了漆黑的树林。`,choices:[{key:"→",label:"继续",target:"p5"}]},
+
+p5:{chapter:"序章｜藤袭山",text:`没过多久，山林深处传来令人毛骨悚然的动静。
+
+一只体型异常庞大的异形鬼，顺着浓烈的血腥味快速逼近。它的躯干上长满密密麻麻的手臂，层层叠叠，像由无数人手堆砌而成。无数手臂不停蠕动、开合，贪婪捕捉着空气中的血味，脖颈被粗壮手臂层层包裹，没有丝毫破绽。
+
+锖兔的身影在树影中一闪，彻底冲进紫藤花遮蔽的阴影里，直面这只怪物。
+
+手鬼诡异的笑声响彻山林：“哦？又是鳞泷那老头的徒弟……真有意思。”
+
+夜风掠过身体，刺骨的凉。一股强烈的心慌，死死攥住了你的心脏。`,choices:[{key:"→",label:"继续",target:"prologue"}]},
+
+prologue:{chapter:"节点一｜初始",text:`左眼的刺痛持续不断，但心底的不安，远比伤口的疼痛更煎熬。
+
+此刻，你选择：`,choices:[
+{key:"A",label:"察觉锖兔的刀磨损严重、濒临崩坏，强忍剧痛起身追赶，打算把自己完好的刀换给他",target:"A_route"},
+{key:"B",label:"留在原地待命。自身伤势过重，上前只会拖累他，选择相信锖兔，安静等待他归来",target:"B_route"},
+{key:"C",label:"假意答应留守，等他走远后，悄悄绕到战场侧面，伺机偷袭辅助",target:"C_route"}]},
+
+A_route:{chapter:"路线 A｜接力",text:`你用力咬紧下唇，靠痛感强行驱散眩晕，撑着树干，艰难站起身。
+
+你循着打斗声，跌跌撞撞追向战场。
+
+沿途的树枝不断刮擦你带伤的侧脸，剧痛让你数次眼前发黑。你只能依靠单眼视野和听觉，在漆黑的山林里勉强辨别方向。`,choices:[{key:"→",label:"继续",target:"A_route2"}]},
+
+A_route2:{chapter:"路线 A｜接力",text:`抵达战场的瞬间，你彻底看清了这场噩梦般的战斗。
+
+手鬼远比想象中恐怖，全身所有手臂都能独立活动，从四面八方同时抽打、缠绕、拉扯。这根本不是常规对决，是被无数活的肢体全方位围剿。
+
+锖兔在密集的手臂缝隙中极限躲闪，不断挥刀斩击。蓝色的水之呼吸接连斩断一条条手臂，可怪物的手臂会快速再生，似乎永远砍不完。`,choices:[{key:"→",label:"继续",target:"A_route3"}]},
+
+A_route3:{chapter:"路线 A｜接力",text:`“戴着破面具的小鬼，刀都快废了，你还想护着谁？”
+
+手鬼满是嘲讽的笑声响起。十几条手臂同时从不同角度突袭，直奔锖兔而去。
+
+锖兔立刻挥刀格挡。你看得一清二楚：他的刀身裂纹不断扩大，连日的战斗早已让这把刀不堪重负，随时都会断裂。`,choices:[{key:"→",label:"继续",target:"A1"}]},
+
+A1:{chapter:"节点 A-1",text:`你必须立刻做出判断。`,choices:[
+{key:"A-1",label:"隐匿身形，从侧方突袭，施展水之呼吸·壹之型 水面斩，偷袭手鬼侧颈",target:"A1a"},
+{key:"A-2",label:"出声吸引注意，大喊锖兔的名字，将完好的刀扔给他，主动为他分担压力",target:"A2"}]},
+
+A1a:{chapter:"路线 A-1｜偷袭",text:`你压低身形，借着树林视野死角猛地冲出。
+
+“水之呼吸·壹之型——水面斩击！”
+
+利刃狠狠劈向手鬼的侧颈，可它脖颈被层层粗壮手臂死死护住，刀刃仅入肉分毫，完全无法破防。
+
+手鬼吃痛暴怒，发出刺耳的咆哮。数条粗壮手臂同时砸落，狠狠轰击在你的胸口、双肩。`,choices:[{key:"→",label:"继续",target:"A1b"}]},
+
+A1b:{chapter:"路线 A-1｜偷袭",text:`巨大的力道直接将你抽飞，后背撞断小树，满口腥甜涌上喉咙。
+
+“义勇！”锖兔瞬间红了眼，声音满是慌乱。
+
+但你的偷袭成功打断了手鬼的攻势，为他争取到了转瞬即逝的空隙。锖兔抓住机会，一刀斩断数条逼近的手臂，跨步上前，全力劈向鬼的脖颈——`,choices:[{key:"→",label:"继续",target:"A1c"}]},
+
+A1c:{chapter:"路线 A-1｜偷袭",text:`“咔嚓。”
+
+清脆的断裂声炸开，他的刀彻底报废。半截刀片飞落泥土，他手中只剩刀柄和一小截残刃。`,choices:[{key:"→",label:"继续",target:"A1X"}]},
+
+A1X:{chapter:"节点 A-1-X",text:`你还有最后一次递出希望的机会。`,choices:[
+{key:"X1",label:"拼尽余力扔出自己的刀：“锖兔！用我的！”",target:"A1X1"},
+{key:"X2",label:"强撑身体挡在他身前：“锖兔，我拖住它，你去捡刀！”",target:"A1X2"}]},
+
+A1X1:{chapter:"路线 A-1-X1｜递刀",text:`你耗尽全身仅剩的力气，将手中完好的日轮刀用力掷向锖兔。
+
+长刀在空中翻转，锖兔抬手欲接——
+
+与此同时，手鬼的手臂带着劲风狠狠袭向他。他双手布满血污、不住颤抖，生死一瞬。`,choices:[{key:"→",label:"继续",target:"A1X1pose"}]},
+
+A1X1pose:{chapter:"节点 A-1-X1-姿态",text:`长刀在空中翻转。锖兔抬手欲接，但手鬼侧方的手臂已经横扫而来。
+
+你只剩一瞬判断，必须喊出接刀方式。`,choices:[
+{key:"a",label:"“锖兔，站定接刀！稳住下盘！”",target:"end_BE2b"},
+{key:"b",label:"“别站定！扑倒翻滚再接！”",target:"A1X1b"}]},
+
+A1X1b:{chapter:"路线 A-1-X1-b｜扑倒接刀",text:`你的喊声几乎破音。锖兔没有犹豫，整个人向侧前方扑倒翻滚。
+
+侧扫的手臂从他头顶掠过，长刀贴地翻转，正好滑进他掌中。
+
+他顺势起身，水之呼吸·贰之型斩断缠来的手臂，突进逼近手鬼。
+
+“义勇，谢了！”
+
+握着完好锋利的长刀，他眼神凌厉决绝，不再留手。利刃轻松破开层层护颈的手臂，精准刺穿手鬼脖颈，一击终结战斗。`,choices:[{key:"结局",label:"迎接没有遗憾的黎明",target:"end_HE"}]},
+
+A1X2:{chapter:"路线 A-1-X2｜拖延",text:`你踉跄着冲到锖兔身前，用残破虚弱的身体挡在怪物面前。
+
+“锖兔！快去捡我的刀！我来拖住它！”
+
+锖兔彻底怔住，语气又急又怒：“你疯了？你现在根本站不稳！”
+
+“快去！”
+
+无数手臂铺天盖地朝你席卷而来。你举起锖兔仅剩的断刃勉强格挡，挡下第一条攻势，第二条手臂缠住你的臂膀，第三条直接锁死你的脖颈。`,choices:[
+{key:"a",label:"硬扛所有伤害，死死牵制鬼的动作，为锖兔争取捡刀时间",target:"A1X2a"},
+{key:"b",label:"依托树木灵活闪避，边躲边拖延，减少自身伤势",target:"A1X2b"}]},
+
+A1X2a:{chapter:"路线 A-1-X2-a｜硬扛伤害",text:`你放弃所有闪避，双手死死拽住缠上脖颈的手臂，用全身重量死死卡住怪物的攻势。
+
+手臂不断收紧，肋骨传来刺骨的压迫感，口腔灌满血腥味。整整三秒，你死死拖住了手鬼的所有动作。
+
+锖兔趁机捡起长刀，回身一刀斩断缠在你身上的手臂，将你从鬼的掌控中拽出。
+
+“水之呼吸·贰之型——横水车！”
+
+他含怒出刀，刀光凌厉迅猛。完好的长刀轻松破开手鬼的防御，一刀斩落鬼首。
+
+【后续影响：义勇肩背、胸腔留下严重旧伤，结局战斗力-20%】`,choices:[{key:"结局",label:"接受这份用伤口换来的胜利",target:"end_NE"}]},
+
+A1X2b:{chapter:"路线 A-1-X2-b｜借树闪避",text:`你咬牙翻滚躲至树干后方，粗壮的树干被手臂直接抽裂，木屑飞溅。你侥幸避开致命伤，却彻底激怒了手鬼，更多手臂朝你围堵而来。
+
+仅拖延了两秒，锖兔仓促捡刀回身，接刀瞬间被手臂擦伤手腕，刀具险些脱手。
+
+他强稳身形，使出“水之呼吸·贰之型——横水车！”
+
+仓促出招仅劈开大半护颈手臂，只能补出第二刀，才勉强终结对手。战后锖兔手腕肿胀，难以握刀。
+
+【后续影响：义勇伤势轻微，锖兔手腕负伤，结局战斗力-10%】`,choices:[{key:"结局",label:"接受这份带着隐患的胜利",target:"end_NE"}]},
+
+A2:{chapter:"路线 A-2｜递刀",text:`“锖兔！接刀！”
+
+你高声呼喊，全力将完好的日轮刀抛出。同时缓步走出树后，用刀鞘重重敲击树干。
+
+“咚——”
+
+清脆的声响穿透夜色。你伫立在月光下，没有多余动作，再次轻敲刀鞘。
+
+“咚。”
+
+手鬼遍布周身的无数手臂瞬间停滞，全部调转方向对准你。它将所有杀意锁定在你身上，蠕动的手臂宛如一面密不透风的围墙。`,choices:[{key:"→",label:"继续",target:"A2b"}]},
+
+A2b:{chapter:"路线 A-2｜递刀",text:`锖兔稳稳接住你的刀，低头看向完好的刀身，再抬头时，神色彻底沉静、凌厉。
+
+“义勇，退后。”
+
+他持刀上前，稳稳挡在你的身前。
+
+“水之呼吸·叁之型——流流舞。”
+
+身形如流水穿梭游走，崭新的长刀划出利落的蓝光，袭来的手臂被接连斩断，战力彻底碾压此前的颓势。`,choices:[{key:"→",label:"继续",target:"A2X"}]},
+
+A2X:{chapter:"节点 A-2",text:`局势逆转，但你仍要决定自己的位置。`,choices:[
+{key:"X",label:"捡起地上的断刀，从侧面辅助牵制怪物",target:"A2Xa"},
+{key:"Y",label:"退回树下调息，完全信任锖兔的实力",target:"A2Y"}]},
+
+A2Xa:{chapter:"路线 A-2-X｜牵制辅助",text:`你拾起锖兔的断刀，绕至手鬼侧方。断刀虽短、残破不堪，你却精准瞄准手臂关节，砍不断便死死卡住，限制怪物肢体活动。
+
+“锖兔！右侧！”
+
+你简洁报位，锖兔无需回头，应声出刀，瞬间斩断三条袭来的手臂。两人配合虽不算熟练，却完美封锁了怪物的所有攻势。
+
+最终锖兔一刀终结战斗。战后他转头看向浑身是血的你，咧嘴笑了出来：“可以啊，断刀都能被你用出效果。”
+
+【后续影响：两人伤势稳定，配合默契，战力无减损】`,choices:[{key:"结局",label:"并肩走出藤袭山",target:"end_NE"}]},
+
+A2Y:{chapter:"路线 A-2-Y｜全然信任",text:`你顺着树干缓缓坐倒，将刀鞘放在膝头，闭眼调息体力。耳边只剩锖兔沉稳的呼吸声、刀锋破空的凌厉声响，节奏平稳有序。
+
+片刻后，听见他高喊“拾之型”，紧随而来的是剧烈的撞击声，以及灰烬簌簌飘落的细碎声响。
+
+“义勇。”
+
+你睁眼抬头，锖兔蹲在你面前，将你的刀稳稳插回刀鞘。
+
+“义勇，我说了，我一定会回来找你的！”`,choices:[{key:"→",label:"继续",target:"A2Yb"}]},
+
+A2Yb:{chapter:"节点 A-2-Y-补刀",text:`手鬼的身躯正在灰烬中崩塌。锖兔收刀，肩膀终于松下来。
+
+你正准备起身。
+
+灰烬中心，似乎还有一小截手臂没有化尽，微微蜷缩。`,choices:[
+{key:"a",label:"先查看锖兔的伤势，鬼已经死了",target:"end_BE4"},
+{key:"b",label:"先补一刀灰烬中心，再扶锖兔",target:"A2Yb2"}]},
+
+A2Yb2:{chapter:"路线 A-2-Y-b｜先补刀",text:`你捡起断刀，朝灰烬中心补了一记水面斩。残臂在灰中扭曲断裂，彻底消散。
+
+锖兔回头看你，愣了一下，随后笑了：“你还挺谨慎。”
+
+【后续影响：两人状态完好，战力拉满，触发专属信任加成｜解锁HE】`,choices:[{key:"结局",label:"带着这份信任走出藤袭山",target:"end_HE"}]},
+
+B_route:{chapter:"路线 B｜等待",text:`你最终选择留在原地。你死死按住流血的左眼，背靠树干一动不动。
+
+漆黑的山林里，所有声响清晰得残忍：手臂抽打空气的轰鸣、树木崩裂坍塌的巨响、手鬼慢条斯理的嘲讽、锖兔咬牙死战的怒吼。
+
+直到一声刺耳清脆的——
+
+“咔嚓。”
+
+你的心瞬间沉到谷底。`,choices:[{key:"→",label:"继续",target:"B_route2"}]},
+
+B_route2:{chapter:"路线 B｜等待",text:`时间一点点流逝，锖兔的嘶吼越来越沙哑、虚弱。最后一声巨大的撞击，整片山林剧烈震动。
+
+“锖兔……”
+
+你挣扎起身，双腿却彻底脱力，重重跪倒在地。
+
+就在这时，两名同期尖叫着狂奔而来，身后紧追着一只普通恶鬼。
+
+“救命！有鬼！救救我们！”
+
+慌乱失措间，他们看见了瘫倒在树下的你。`,choices:[{key:"→",label:"继续",target:"B1"}]},
+
+B1:{chapter:"节点 B-1",text:`恶鬼正在逼近，你必须立刻做出选择。`,choices:[
+{key:"B-1",label:"强忍伤痛起身：“躲我身后！”",target:"B1a"},
+{key:"B-2",label:"厉声呼喊：“别过来！往反方向跑！”",target:"B2"},
+{key:"B-3",label:"恶鬼近在咫尺，手边仅有一截断刀",target:"B3"}]},
+
+B1a:{chapter:"路线 B-1｜护人",text:`你撑着残破的身体站起身，挡在他们身前。
+
+恶鬼猛扑而来，你侧身规避，拼命一击，竟然斩落鬼首。
+
+恶鬼化作灰烬消散，两名同期瘫坐在地，吓得浑身发抖、低声啜泣。
+
+可就在你收刀的瞬间——
+
+远处传来手鬼满足又缓慢的笑声。紧接着是手臂收紧的轻响，而后，整片山林陷入死寂。`,choices:[
+{key:"X",label:"立刻奔赴战场查看情况",target:"B1X"},
+{key:"Y",label:"彻底脱力倒地，伤口全面崩裂，动弹不得",target:"end_HIDDEN"}]},
+
+B1X:{chapter:"路线 B-1-X｜赶去战场",text:`你跌跌撞撞冲向战场。
+
+抵达时，手鬼正在缓缓吞噬战利品，嘴边残留着面具的碎片。锖兔倒在血泊之中，胸口仍有微弱起伏，尚未断气。
+
+你立刻冲上前，斩断手鬼残余的手臂，将锖兔拖拽至安全区域。暴怒的手鬼发起反扑，却因肢体大量残缺，动作迟缓无力。你强撑体力阻拦攻势，直至手鬼彻底化为灰烬。
+
+锖兔侥幸存活，但右臂、肋骨严重受损，需要长年休养。
+
+【后续影响：锖兔存活重伤，义勇伤势加重｜战力-30%】`,choices:[{key:"结局",label:"守住这个还活着的人",target:"end_NE"}]},
+
+B2:{chapter:"路线 B-2｜让他们逃跑",text:`你咬紧牙关，用尽仅剩的力气嘶吼：“别过来！快跑！”
+
+两名同期愣神一瞬，立刻转身狂奔，恶鬼紧随其后穷追不舍。
+
+耳边是慌乱的奔跑声，最后只剩一声凄厉的惨叫，戛然而止。
+
+你无暇顾及旁人。
+
+远处，锖兔奋战的声响毫无征兆地彻底中断，一片死寂。`,choices:[
+{key:"X",label:"强行起身，扶树挪向战场",target:"B2X"},
+{key:"Y",label:"浑身脱力，只能靠树静坐，直面无边死寂",target:"B2Y"}]},
+
+B2X:{chapter:"路线 B-2-X｜起身去战场",text:`你扶着树干艰难起身，一步一晃朝着战场挪动。每走一步，左眼的鲜血都会顺着下颌滴落。
+
+抵达战场时，只看见缓缓消散的鬼灰，和倒在血泊里的锖兔。他的面具碎裂大半，露出惨白的侧脸，手中还死死攥着半截断刀。
+
+“锖兔！”
+
+你跪倒在他身边。他艰难睁眼看向你，嘴唇微动，却发不出半点声音。
+
+选拔结束后，锖兔侥幸存活，但右手、左腿筋腱断裂，彻底失去握刀战斗的能力。你独自成为水柱，余生握刀之时，总会想起他血染的模样。`,choices:[{key:"结局",label:"独自扛起水柱之名",target:"end_BE1V"}]},
+
+B2Y:{chapter:"路线 B-2-Y｜原地不动",text:`你背靠树干静坐，右眼望着夜风摇晃的紫藤花枝。
+
+远处再无半点声响，连灰烬飘落的细微动静都无从听闻。
+
+破晓天明，你拖着残破的身体挪至战场。`,choices:[{key:"结局",label:"面对空无一人的战场",target:"end_BE1"}]},
+
+B3:{chapter:"路线 B-3｜投掷断刀",text:`你抓起手边的半截断刀，全力掷向逼近的恶鬼。
+
+断刀精准刺穿鬼的腿部，恶鬼重重摔倒。两名同期趁机躲到你的身边。
+
+“谢谢！”
+
+与此同时，远处手鬼的笑声骤然终止。一阵细微的骨骼响动后，山林彻底安静。
+
+这份死寂，透着诡异的凶险。`,choices:[
+{key:"X",label:"让同期搀扶，立刻前往战场确认状况",target:"B3X"},
+{key:"Y",label:"无力行动，让师弟前去探查，原地等候消息",target:"B3Y"}]},
+
+B3X:{chapter:"节点 B-3-X-赶路",text:`同期搀扶着你，正要赶往战场。
+
+远处已经安静得不对劲。`,choices:[
+{key:"a",label:"让同期搀着你，稳一点走",target:"end_BE1c"},
+{key:"b",label:"推开他们，自己先冲过去",target:"B3Xb"}]},
+
+B3Xb:{chapter:"路线 B-3-X｜自己先冲",text:`你推开同期，扶着树干拼命往前冲。左眼血流不止，但你赶上了。
+
+锖兔单膝跪地，残破的断刀深深插在手鬼脖颈处，即便力竭，也死死攥紧刀柄。
+
+手鬼的身躯正在化为灰烬。听见脚步声，锖兔转头看来，面具歪斜挂在耳边，满脸血污，却勉强扯出笑意。
+
+他想起身，双腿彻底脱力，直直栽倒。你立刻上前接住他，两人一同跌坐在满地灰烬之中。`,choices:[{key:"结局",label:"一起活着走出藤袭山",target:"end_HE"}]},
+
+B3Y:{chapter:"路线 B-3-Y｜让同期探查",text:`同期快步冲向战场，折返时脸色惨白：“……他跪在那里不动了，鬼已经消失了。”
+
+你撑着树干起身，缓缓挪至战场。锖兔僵坐在灰烬中央，断刀残留在手鬼消散的位置，整个人耗尽了所有力气。
+
+你蹲在他面前，他抬眼看向你，眼底泛红，脸色惨白，第一句话却是：“你没事吧？”`,choices:[{key:"结局",label:"收下这份笨拙而坚定的关心",target:"end_HE"}]},
+
+C_route:{chapter:"路线 C｜守望",text:`你没有乖乖留守，借着密林掩护，悄悄绕到战场侧方，无声靠近。
+
+看清战况的一刻，心头骤然一紧。
+
+锖兔的刀已经彻底报废，刀身布满缺口、刀尖断裂，仅剩的半截刀身脆弱不堪，随时会彻底碎裂。
+
+手鬼并不急于强攻，它收回大部分手臂，层层叠叠包裹住脖颈，彻底锁死自身要害。剩余的手臂四散张开，从四面八方缓慢试探、合围，步步紧逼。`,choices:[{key:"→",label:"继续",target:"C1"}]},
+
+C1:{chapter:"节点 C-1",text:`你藏身于阴影之中，必须决定下一步。`,choices:[
+{key:"C-1",label:"冲出密林，撞开锖兔，以身硬扛致命一击",target:"C1a"},
+{key:"C-2",label:"出声提醒，将完好的刀投掷给锖兔",target:"C2"},
+{key:"C-3",label:"捕捉到脖颈转瞬即逝的破绽，尝试一次绝杀偷袭",target:"C3"}]},
+
+C1a:{chapter:"路线 C-1｜以身挡击",text:`你不顾一切冲出隐蔽处，全力撞向锖兔。
+
+“义勇？！”
+
+原本直奔锖兔后背的数条手臂，全部狠狠砸在你的肩背。巨大的力道将你死死钉在树干上，肩膀错位剧痛，全身瞬间脱力。
+
+“义勇！！！”
+
+锖兔的嘶吼撕心裂肺，满是恐慌与暴怒。
+
+濒临碎裂的断刀在他手中爆发出极致的力量。“水之呼吸·拾之型——生生流转！”
+
+蓝色刀光卷成龙卷，他不顾一切疯狂挥刀，刀身碎裂便用残刃继续斩击，一层层劈开护颈的手臂，终于暴露出手鬼的致命弱点。`,choices:[
+{key:"X1",label:"强忍剧痛，将自己的刀扔给锖兔",target:"C1X1"},
+{key:"X2",label:"嘶吼提醒破绽：“刺它眼睛！用断刀！”",target:"C1X2"}]},
+
+C1X1:{chapter:"路线 C-1-X1｜扔刀助攻",text:`你咬紧牙关，用完好的单手抽出日轮刀，奋力掷向锖兔。
+
+“锖兔——！”
+
+他无需回头，反手稳稳攥住刀柄。完好的利刃入手，他周身的气场瞬间凌厉翻倍。
+
+“水之呼吸·贰之型——横水车！”
+
+一刀横斩，干净利落地切断手鬼脖颈。灰烬漫天飘落，锖兔第一时间跪至你身前，双手颤抖，慌乱地检查你错位受伤的肩膀。`,choices:[{key:"结局",label:"接受圆满却带着遗憾的未来",target:"end_NE"}]},
+
+C1X2:{chapter:"路线 C-1-X2｜嘶吼提醒",text:`“锖兔！刺它眼睛！用断刀！”
+
+风声嘈杂，他清晰听见了你的喊声。
+
+紧握残破的短刃，他侧身避开正面攻势，从密集的手臂缝隙中突进，断刀狠狠扎入手鬼唯一无防护的眼窝。
+
+手鬼发出震耳欲聋的尖叫，全身肢体疯狂抽搐。锖兔没有松手，发力将断刀再度深入一寸。
+
+“水之呼吸·壹之型——水面斩。”
+
+断刀在鬼眼内搅动，致命伤害彻底爆发。手鬼躯体僵直，灰烬顺着伤口快速蔓延全身，彻底消亡。
+
+战斗结束，锖兔走到你身边，手中只剩空空的刀柄。他抬手，用沾满血污的手轻轻触碰你的脸颊，语气带着后怕：“你刚才真的吓到我了。”`,choices:[{key:"结局",label:"收下这份断刀绝杀后的约定",target:"end_NE"}]},
+
+C2:{chapter:"节点 C-2-喊掷顺序",text:`你从树后闪出，长刀已在手中。
+
+手鬼的三条手臂正从三个方向封锁锖兔退路。`,choices:[
+{key:"a",label:"先高喊“锖兔，接刀！”再掷",target:"end_BE2c"},
+{key:"b",label:"不出声，先掷刀，再短喝“右下！”",target:"C2b"}]},
+
+C2b:{chapter:"路线 C-2｜飞刀",text:`你咬住声音，先让刀脱手，才短促报位：“右下！”
+
+锖兔没有抬头找刀，而是凭声音侧身单手接刀。袭来的手臂擦过肋骨，划开伤口，却没干扰他握刀。
+
+“好！”
+
+简洁一语，他直面怪物。
+
+【刀之命运判定：单眼受伤、左肩重伤、距离七米；锖兔遭遇三面围堵】`,choices:[
+{key:"50% 成功",label:"锖兔单手接刀，斩断袭来的手臂，逆转战局",target:"end_HE"},
+{key:"50% 失败",label:"锖兔被手臂缠住小腿，长刀坠地，遭到禁锢",target:"end_BE2"}]},
+
+C3:{chapter:"路线 C-3｜暗杀偷袭",text:`你屏住全部呼吸，仅用单眼死死锁定鬼颈的细微缝隙——仅此一次机会，不成功便成仁。
+
+【命运判定：成功率极低】`,choices:[
+{key:"30% 成功",label:"长刀精准刺入手臂缝隙，锖兔抓住空隙完成绝杀",target:"end_HE"},
+{key:"70% 失败",label:"手鬼警觉地封死破绽，你失去武器，被它锁定",target:"C3fail"}]},
+
+C3fail:{chapter:"路线 C-3｜偷袭失败",text:`手鬼警觉性极强，脖颈处的手臂瞬间收紧，彻底封死所有破绽。你的长刀擦着密集的手臂飞过，深深扎入远处树干。
+
+你彻底失去武器。手鬼缓缓转动躯体，死死盯住你的藏身之处，杀意凛然。锖兔察觉你的处境，强行冲来救援。`,choices:[{key:"救援",label:"不再退缩，和锖兔一起硬闯最后一击",target:"end_BE3"}]}
+};
+
+const ENDINGS = {
+end_HE:{id:"HE",title:"HE｜圆满",short:"双双走出藤袭山",text:`锖兔握着你的刀，一刀终结了手鬼。
+
+月光洒落，灰烬漫天飞舞。他摘下面具，带着劫后余生的笑意看向你。
+
+你们相互搀扶着走出藤袭山。后来，你们双双晋升为水柱，岁岁相伴，再也无离别。`},
+end_NE:{id:"NE",title:"NE｜圆满遗憾",short:"活下来，却留下伤痕",text:`锖兔暴怒绝杀手鬼，大获全胜。但你肩背身负永久重伤，再也无法执刀征战。
+
+此后，你退居鬼杀队后勤，而锖兔独守水柱之位。最终决战落幕后，你们回到狭雾山一起生活，安稳相守。`},
+end_BE1:{id:"BE1",title:"BE1｜原著结局",short:"迟来的破晓",text:`破晓天明，你拖着残破的身体抵达战场，却只剩满地狼藉与冰冷死寂。
+
+你跪倒在空荡的战场中，心口剧痛，却一滴眼泪也流不出来。
+
+你活了下来，成为威名赫赫的水柱富冈义勇，却一辈子被困在藤袭山的愧疚与遗憾之中。`},
+end_BE1V:{id:"BE1V",title:"BE1 变体｜独身水柱",short:"他活着，却再不能握刀",text:`锖兔侥幸存活，却因筋腱断裂，永久告别战场，困于狭雾山养伤。
+
+你独自扛起水柱的责任。每次回来探望，他都笑着问询你的战况，转身却难以掩饰失落的神情。
+
+你们两人默契闭口不提那天的遗憾，却终生都无法释怀。`},
+end_BE1c:{id:"BE1c",title:"BE1c｜迟来一步",short:"只慢了几秒",text:`你选择了更稳的赶路方式，只慢了几秒。
+
+锖兔撑到了你来，却没撑过那几秒。
+
+此后你成为水柱，每次握刀，都记得灰烬里那把断刀。`},
+end_BE2:{id:"BE2",title:"BE2｜擦肩而过",short:"明明只差一点",text:`那一刀只差分毫，最终被手臂弹飞。
+
+锖兔被无数手臂死死禁锢，奋力挣扎，终是无力回天。
+
+你永远记得那个瞬间。
+
+明明只差一点。`},
+end_BE2b:{id:"BE2b",title:"BE2b｜站定擦肩",short:"最稳妥的指令，最致命的一站",text:`你喊了最稳妥的“站定接刀”。
+
+锖兔站住了，却也因此避不开侧扫。刀被抽飞，他被拖向鬼身。
+
+你永远记得那一瞬：明明刀已经出手，明明只差一个扑倒。`},
+end_BE2c:{id:"BE2c",title:"BE2c｜喊声封线",short:"声音暴露了刀的落点",text:`你先喊再接，声音让手鬼提前封死了落点。
+
+长刀被拍飞，锖兔被缠住。
+
+后来你总在想，如果当时先掷刀、后出声，他是不是就能接住。`},
+end_BE3:{id:"BE3",title:"BE3｜双残",short:"一起活下来的代价",text:`你弃掉所有顾虑，以身挡下致命攻击，被手鬼死死缠住。
+
+锖兔含泪捡起你的刀，拼死斩杀怪物，随后力竭倒在你身侧。
+
+两人皆被同门救出，侥幸活命，却都落下终身重伤，彻底告别前线战场，驻守后勤，相伴余生。`},
+end_BE4:{id:"BE4",title:"BE4｜灰中残手",short:"是你先转了身",text:`鬼已化灰，你转身去看锖兔。
+
+灰中残臂却在你背后弹起。
+
+锖兔活了下来，右肩却彻底废掉。你们都不提那天，但你知道，是你先转了身。`},
+end_HIDDEN:{id:"HIDDEN",title:"隐藏结局｜藤袭山的回声",short:"多年后的重逢",text:`你重伤脱力，只能静静听着远处战斗落幕，归于死寂，无能为力。
+
+天亮之时，锖兔战死。你侥幸存活。
+
+多年后，你再次见到了当时被你保护的同期，他们此刻已经成长为鬼杀队的中坚力量。
+
+此刻，你不禁想起多年以前的藤袭山，想起那个抵着你的额头、笃定说会回来找你的少年。`}
+};
+
+const SAVE_KEY="tasukete_sabito_unlocked_endings_v2";
+const LAST_NODE_KEY="tasukete_sabito_last_node_v2";
+let currentNodeId="p1";
+
+const $=id=>document.getElementById(id);
+const screens=["menuScreen","storyScreen","endingScreen","galleryScreen"];
+function showScreen(id){
+  screens.forEach(s=>$(s).classList.toggle("hidden",s!==id));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function getUnlocked(){
+  try{const v=JSON.parse(localStorage.getItem(SAVE_KEY)||"[]");return Array.isArray(v)?v.filter(id=>ENDINGS[id]):[];}
+  catch(e){return[];}
+}
+function unlockEnding(id){
+  const u=new Set(getUnlocked());u.add(id);
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify([...u]));}catch(e){}
+}
+function renderNode(nodeId){
+  const node=STORY_NODES[nodeId];
+  if(!node){console.error("未找到节点",nodeId);return;}
+  currentNodeId=nodeId;
+  try{localStorage.setItem(LAST_NODE_KEY,nodeId);}catch(e){}
+  showScreen("storyScreen");
+  $("chapterTag").textContent=node.chapter;
+  $("progressText").textContent="命运节点 · "+nodeId;
+  const t=$("storyText");
+  t.classList.remove("fade-in");
+  t.textContent=node.text;
+  void t.offsetWidth;
+  t.classList.add("fade-in");
+  const opt=$("options");opt.replaceChildren();
+  const cont=node.choices.length===1&&node.choices[0].key==="→";
+  node.choices.forEach((c,i)=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="choice"+(cont?" continue":"");
+    const k=document.createElement("span");k.className="key";k.textContent=cont?"":(c.key||i+1);
+    const l=document.createElement("span");l.className="label";l.textContent=c.label;
+    b.append(k,l);
+    b.onclick=()=>navigate(c.target);
+    opt.append(b);
+  });
+  $("storyNote").textContent=cont?"点击继续阅读。":(node.choices.some(c=>String(c.key).includes("判定")||String(c.key).includes("%"))?"命运判定分支为固定选项，方便重复体验不同结果。":"每一次选择都可能改变命运。");
+}
+function navigate(t){
+  if(ENDINGS[t]){renderEnding(t);return;}
+  renderNode(t);
+}
+function renderEnding(id){
+  const e=ENDINGS[id];if(!e)return;
+  unlockEnding(id);
+  try{localStorage.removeItem(LAST_NODE_KEY);}catch(err){}
+  $("endingMark").textContent="ENDING / "+e.id;
+  $("endingTitle").textContent=e.title;
+  $("endingText").textContent=e.text;
+  showScreen("endingScreen");
+}
+function renderGallery(){
+  const u=new Set(getUnlocked());
+  const keys=Object.keys(ENDINGS);
+  $("galleryCount").textContent=`已解锁 ${u.size} / ${keys.length}`;
+  const g=$("galleryGrid");g.replaceChildren();
+  keys.forEach((key,i)=>{
+    const e=ENDINGS[key],on=u.has(key);
+    const card=document.createElement("article");
+    card.className="ending-card"+(on?" unlocked":"");
+    const s=document.createElement("div");s.className="symbol";s.textContent=on?"✦":"◇";
+    const h=document.createElement("h3");h.textContent=on?e.title:`？？？｜未解锁结局 ${String(i+1).padStart(2,"0")}`;
+    const p=document.createElement("p");p.textContent=on?e.short:"尚未抵达。继续探索不同的选择。";
+    card.append(s,h,p);g.append(card);
+  });
+  showScreen("galleryScreen");
+}
+function startGame(){renderNode("p1");}
+function goMenu(){showScreen("menuScreen");}
+
+$("startButton").onclick=startGame;
+$("restartButton").onclick=startGame;
+$("menuButton").onclick=goMenu;
+$("endingMenuButton").onclick=goMenu;
+$("galleryMenuButton").onclick=goMenu;
+$("galleryButton").onclick=renderGallery;
+$("menuGalleryButton").onclick=renderGallery;
+$("endingGalleryButton").onclick=renderGallery;
+$("galleryContinueButton").onclick=()=>{
+  let s=null;try{s=localStorage.getItem(LAST_NODE_KEY);}catch(e){}
+  if(s&&STORY_NODES[s])renderNode(s);else startGame();
+};
+$("clearSaveButton").onclick=()=>{
+  if(confirm("确定重置全部结局解锁记录吗？")){
+    try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+    renderGallery();
+  }
+};
+$("musicToggle").onclick=()=>{
+  const b=$("musicToggle"),a=$("bgm");
+  if(!a){
+    const on=b.getAttribute("aria-pressed")!=="true";
+    b.setAttribute("aria-pressed",String(on));
+    b.textContent=on?"♫ BGM：已开启（待添加音源）":"♫ BGM：关闭";
+    return;
+  }
+  if(a.paused){a.play().then(()=>{b.textContent="♫ BGM：开启";}).catch(()=>{b.textContent="♫ 点击重试播放";});}
+  else{a.pause();b.textContent="♫ BGM：关闭";}
+};
+
+(function validate(){
+  const reached=new Set();
+  for(const [id,n] of Object.entries(STORY_NODES)){
+    for(const c of n.choices){
+      if(!STORY_NODES[c.target]&&!ENDINGS[c.target])console.warn("跳转目标不存在",id,c.target);
+      reached.add(c.target);
+    }
+  }
+  for(const id of Object.keys(STORY_NODES))if(id!=="p1"&&!reached.has(id))console.warn("孤儿节点",id);
+})();
+</script>
+</body>
+</html>
